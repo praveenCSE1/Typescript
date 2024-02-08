@@ -15,15 +15,21 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.router = void 0;
 const express_1 = __importDefault(require("express"));
 const signup_1 = require("../models/signup");
+const bcrypt_1 = __importDefault(require("bcrypt"));
 const router = express_1.default.Router();
 exports.router = router;
-router.post('/data', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.post('/signup', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const data = new signup_1.Users({
-            email: req.body.email,
-            password: req.body.password,
-        });
-        const save = yield data.save().then(User => {
+        const email = req.body.email;
+        const password = req.body.password;
+        const existingUser = yield signup_1.Users.findOne({ email });
+        if (existingUser) {
+            return res.status(400).json({ message: 'Email already exists' });
+        }
+        const hpassword = yield bcrypt_1.default.hash(password, 10);
+        console.log(hpassword);
+        const NewUser = new signup_1.Users({ email: email, password: hpassword });
+        const save = yield NewUser.save().then(User => {
             console.log(User);
             res.status(200).json({ message: "success", user: User });
         });

@@ -9,8 +9,8 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB eror:'));
 db.once('open', () => {
 
-  console.log('Connected');
-  
+  console.log('Database Connected');
+
 });
-const Model = mongoose.model
-export {mongoose,Model};
+
+export {mongoose};

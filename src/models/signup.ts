@@ -1,21 +1,18 @@
 
-import {mongoose,Model} from "./db";
+import {mongoose} from "./db";
 
 export interface User {
     email:string,
 
-    password:string
+    password:String
 }
 const userschema: mongoose.Schema = new mongoose.Schema<User>({  
-
     email: String,
-
     password:{
         type:String
-    }
-    
+    }    
 }); 
 
-const Users = Model('registers',userschema)
+const Users = mongoose.model('registers',userschema)
 
 export  {Users}
