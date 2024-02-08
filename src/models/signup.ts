@@ -1,7 +1,6 @@
 
 import {mongoose,Model} from "./db";
 
-
 export interface User {
     email:string,
 
@@ -10,7 +9,7 @@ export interface User {
 const userschema: mongoose.Schema = new mongoose.Schema<User>({  
 
     email: String,
-    
+
     password:{
         type:String
     }
