@@ -1,20 +1,32 @@
 import express, { Request, Response } from 'express';
-
+import  { Users,User} from '../models/signup';
 const router = express.Router();
 
-interface  user{
-  name:String
-}
 
-router.post('/data', (req:Request<user>, res: Response) => {
+router.post('/data', async (req,res) => {
+  try{
+   
 
-    const name1:String = req.body.name;  
-    if (!name1) {
-      res.status(400).send('Name is required');
-    } else {
-      res.send(`my name is ${name1}!`);
+  
+
+
+     const data = new Users<User>({
+
+      email:req.body.email,
+      password:req.body.password,
+      
+    })
+
+     const save = await data.save().then(User=>{
+      console.log(User);
+      res.status(200).json({message:"success",user:User})
+    })
+
+  }
+  catch(err){
+    console.log(err)
+      res.status(500).json({message:"Error while storing the user data"})
     }
-
 });
 
 export {router}
