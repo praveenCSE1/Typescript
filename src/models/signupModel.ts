@@ -1,7 +1,7 @@
 
 import {mongoose} from "./db";
 
-export interface User {
+export interface User extends mongoose.Document{
 
     email:string,
 
@@ -21,6 +21,6 @@ const userschema: mongoose.Schema = new mongoose.Schema<User>({
     }  
 }); 
 
-const Users = mongoose.model('registers',userschema)
+const Users = mongoose.model<User>('registers',userschema)
 
 export  {Users}

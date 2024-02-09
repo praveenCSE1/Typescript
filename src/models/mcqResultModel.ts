@@ -1,7 +1,7 @@
 
 import {mongoose} from "./db"
 
-export interface McqResult{
+export interface McqResult extends mongoose.Document{
 
     userId:string,
     username:string,
@@ -24,6 +24,6 @@ const mcq1:mongoose.Schema = new mongoose.Schema<McqResult>({
     Date: { type: Date, default: Date.now }
 })
 
-const mcqResult= mongoose.model("mcqResults",mcq1 );
+const mcqResult= mongoose.model<McqResult>("mcqResults",mcq1 );
 
 export {mcqResult}

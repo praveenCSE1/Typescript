@@ -1,6 +1,7 @@
 
 import {Request,Response} from "express"
 import {Users,User} from "../models/signupModel"
+import { generateToken } from "./jwtController"
 import bcrypt from "bcrypt"
 
 const signup = async (req:Request,res:Response) => {
@@ -19,7 +20,7 @@ const signup = async (req:Request,res:Response) => {
       const hpassword = await bcrypt.hash(password,10)
   
       
-      const NewUser = new Users({
+      const NewUser:User = new Users({
 
         email:email,
         password:hpassword
@@ -55,8 +56,11 @@ const login = async(req:Request,res:Response)=>{
         const Userpassword = await bcrypt.compare(password, user.password);
 
         if(Userpassword){
+
+          const token = generateToken(user._id,user.role)    
+          console.log(token);     
+          res.status(200).json({ status: 'success',data:{ userID:user._id,role:user.role,email:user.email},token: token, });
     
-          res.status(200).json({ status: 'success'});
 
         }
 

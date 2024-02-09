@@ -1,6 +1,6 @@
 import {mongoose} from "./db"
 
-export interface Question{
+export interface Question extends mongoose.Document{
     
     question:String,
     options:[{option:string, isCorrect:boolean}]
@@ -17,6 +17,6 @@ const mcqSchema:mongoose.Schema = new mongoose.Schema<Question>({
 
 })
 
-const McqModel = mongoose.model('mcqQuestions',mcqSchema)
+const McqModel = mongoose.model<Question>('mcqQuestions',mcqSchema)
 
 export {McqModel}

@@ -23,7 +23,7 @@ import {McqResult,mcqResult} from "../models/mcqResultModel"
 
 export const add_mcq = async(req:Request,res:Response)=>{
     try{
-        const newMcq = new McqModel<Question>({
+        const newMcq:Question = new McqModel({
             question:req.body.question,
             options:req.body.options,
                   
@@ -40,8 +40,8 @@ export const add_mcq = async(req:Request,res:Response)=>{
 
 export  const storeResult = async(req:Request,res:Response)=>{
     try{
-        const newResult = new mcqResult({
-            userId:'dsfsfdedfdfsecvnmoe',
+        const newResult:McqResult = new mcqResult({
+            userId:req.user.userId,
             username:req.body.username,
             Result:req.body.result,
             marksObtained:req.body.marksObtained,
@@ -61,7 +61,7 @@ export const displayResult = async(req:Request,res:Response)=>{
 
     try{
         // const result = await McqModel.findOne({userId:req.user.userId})
-        const result = await mcqResult.find({})
+        const result:McqResult|null = await mcqResult.findOne({userId:req.user.userId})
         console.log(result+'d')
         res.status(200).json(result) 
     }

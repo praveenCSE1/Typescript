@@ -44,7 +44,7 @@ const storeResult = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             userId: 'dsfsfdedfdfsecvnmoe',
             username: req.body.username,
             Result: req.body.result,
-            marksObtained: req.body.marks,
+            marksObtained: req.body.marksObtained,
             TotalAttempts: req.body.TotalAttempts,
             Date: Date.now()
         });
@@ -59,7 +59,7 @@ exports.storeResult = storeResult;
 const displayResult = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         // const result = await McqModel.findOne({userId:req.user.userId})
-        const result = yield mcqQuestionModel_1.McqModel.find({});
+        const result = yield mcqResultModel_1.mcqResult.find({});
         console.log(result + 'd');
         res.status(200).json(result);
     }

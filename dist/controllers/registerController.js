@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.login = exports.signup = void 0;
 const signupModel_1 = require("../models/signupModel");
+const jwtController_1 = require("./jwtController");
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const signup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -50,7 +51,9 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         }
         const Userpassword = yield bcrypt_1.default.compare(password, user.password);
         if (Userpassword) {
-            res.status(200).json({ status: 'success' });
+            const token = (0, jwtController_1.generateToken)(user._id, user.role);
+            console.log(token);
+            res.status(200).json({ status: 'success', data: { userID: user._id, role: user.role, email: user.email }, token: token, });
         }
     }
     catch (error) {
