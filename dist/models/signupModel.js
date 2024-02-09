@@ -6,6 +6,10 @@ const userschema = new db_1.mongoose.Schema({
     email: String,
     password: {
         type: String
+    },
+    role: {
+        type: String,
+        default: 'USER'
     }
 });
 const Users = db_1.mongoose.model('registers', userschema);

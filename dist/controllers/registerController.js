@@ -12,23 +12,23 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.router = void 0;
-const express_1 = __importDefault(require("express"));
-const signup_1 = require("../models/signup");
+exports.login = exports.signup = void 0;
+const signupModel_1 = require("../models/signupModel");
 const bcrypt_1 = __importDefault(require("bcrypt"));
-const router = express_1.default.Router();
-exports.router = router;
-router.post('/signup', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const signup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const email = req.body.email;
         const password = req.body.password;
-        const existingUser = yield signup_1.Users.findOne({ email });
+        //find whether the email already exist or not
+        const existingUser = yield signupModel_1.Users.findOne({ email });
         if (existingUser) {
             return res.status(400).json({ message: 'Email already exists' });
         }
         const hpassword = yield bcrypt_1.default.hash(password, 10);
-        console.log(hpassword);
-        const NewUser = new signup_1.Users({ email: email, password: hpassword });
+        const NewUser = new signupModel_1.Users({
+            email: email,
+            password: hpassword
+        });
         const save = yield NewUser.save().then(User => {
             console.log(User);
             res.status(200).json({ message: "success", user: User });
@@ -38,4 +38,24 @@ router.post('/signup', (req, res) => __awaiter(void 0, void 0, void 0, function*
         console.log(err);
         res.status(500).json({ message: "Error while storing the user data" });
     }
-}));
+});
+exports.signup = signup;
+const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const email = req.body.email;
+        const password = req.body.password;
+        const user = yield signupModel_1.Users.findOne({ email });
+        if (!user) {
+            return res.status(400).json({ message: 'Invalid Credentials' });
+        }
+        const Userpassword = yield bcrypt_1.default.compare(password, user.password);
+        if (Userpassword) {
+            res.status(200).json({ status: 'success' });
+        }
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).json({ message: "Error while login the user data" });
+    }
+});
+exports.login = login;

@@ -1,0 +1,14 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.mcq = void 0;
+const mcqController_1 = require("../controllers/mcqController");
+const express_1 = __importDefault(require("express"));
+const router = express_1.default.Router();
+exports.mcq = router;
+router.get('/result', mcqController_1.displayResult);
+router.post('/result', mcqController_1.storeResult);
+router.get('/', mcqController_1.displayQuestions);
+router.post('/', mcqController_1.add_mcq);
