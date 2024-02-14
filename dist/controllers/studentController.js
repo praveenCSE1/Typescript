@@ -16,6 +16,7 @@ const adduser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const newUser = new studentModel_1.studentDetails({
             userId: req.user.userId,
             name: req.body.name,
+            email: req.body.email,
             department: req.body.department,
             phn: req.body.mobileNumber,
             dob: req.body.dateOfBirth

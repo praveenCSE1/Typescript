@@ -18,8 +18,7 @@ const signup = async (req:Request,res:Response) => {
               return res.status(400).json({ message: 'Email already exists' });
       }
       const hpassword = await bcrypt.hash(password,10)
-  
-      
+    
       const NewUser:User = new Users({
 
         email:email,
@@ -60,11 +59,8 @@ const login = async(req:Request,res:Response)=>{
           const token = generateToken(user._id,user.role)    
           console.log(token);     
           res.status(200).json({ status: 'success',data:{ userID:user._id,role:user.role,email:user.email},token: token, });
-    
-
+ 
         }
-
-
     }
     catch(error){
 

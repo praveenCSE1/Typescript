@@ -14,8 +14,9 @@ const mcqQuestionModel_1 = require("../models/mcqQuestionModel");
 const mcqResultModel_1 = require("../models/mcqResultModel");
 const displayQuestions = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        const mcqId = req.params.id;
+        console.log(mcqId);
         const data = yield mcqQuestionModel_1.McqModel.find({});
-        console.log(data);
         res.json(data);
     }
     catch (error) {
@@ -25,12 +26,19 @@ const displayQuestions = (req, res) => __awaiter(void 0, void 0, void 0, functio
 exports.displayQuestions = displayQuestions;
 const add_mcq = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        const question = req.body.question;
+        const options = req.body.options;
+        const category = req.body.category;
+        if (!question || !options || !category) {
+            return res.status(400).json({ message: 'Missing required fields' });
+        }
         const newMcq = new mcqQuestionModel_1.McqModel({
-            question: req.body.question,
-            options: req.body.options,
+            question,
+            options,
+            category
         });
-        const savedUser = yield newMcq.save();
-        res.status(200).json({ message: 'mcq added successfully' });
+        yield newMcq.save();
+        res.status(200).json({ message: 'MCQ added successfully' });
     }
     catch (error) {
         console.error(error);

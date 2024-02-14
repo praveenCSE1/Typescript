@@ -6,9 +6,10 @@ import {McqResult,mcqResult} from "../models/mcqResultModel"
 
     try{
 
+        const mcqId = req.params.id;
+        console.log(mcqId)
         const data = await McqModel.find({})
-
-        console.log(data);
+        
 
         res.json(data);
 
@@ -23,14 +24,26 @@ import {McqResult,mcqResult} from "../models/mcqResultModel"
 
 export const add_mcq = async(req:Request,res:Response)=>{
     try{
-        const newMcq:Question = new McqModel({
-            question:req.body.question,
-            options:req.body.options,
-            
-                  
+        const question = req.body.question;
+        const options = req.body.options;
+        const category = req.body.category;
+
+        
+        if (!question || !options || !category) {
+            return res.status(400).json({ message: 'Missing required fields' });
+        }
+
+       
+        const newMcq: Question = new McqModel({
+            question,
+            options,
+            category
         });
-        const savedUser = await newMcq.save();
-        res.status(200).json({ message: 'mcq added successfully'});
+
+        
+        await newMcq.save();
+
+        res.status(200).json({ message: 'MCQ added successfully' });
 
     }
     catch(error){

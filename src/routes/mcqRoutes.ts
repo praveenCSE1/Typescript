@@ -8,7 +8,7 @@ router.get('/displayResult',displayResult)
 
 router.post('/storeResult',storeResult)
 
-router.get('/',displayQuestions)
+router.get('/:id',displayQuestions)
 
 router.post('/',add_mcq);
 
