@@ -26,6 +26,7 @@ export const add_mcq = async(req:Request,res:Response)=>{
         const newMcq:Question = new McqModel({
             question:req.body.question,
             options:req.body.options,
+            
                   
         });
         const savedUser = await newMcq.save();
@@ -60,7 +61,7 @@ export  const storeResult = async(req:Request,res:Response)=>{
 export const displayResult = async(req:Request,res:Response)=>{
 
     try{
-        // const result = await McqModel.findOne({userId:req.user.userId})
+        
         const result:McqResult|null = await mcqResult.findOne({userId:req.user.userId})
         console.log(result+'d')
         res.status(200).json(result) 

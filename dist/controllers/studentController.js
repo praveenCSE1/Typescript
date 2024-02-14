@@ -14,7 +14,7 @@ const studentModel_1 = require("../models/studentModel");
 const adduser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const newUser = new studentModel_1.studentDetails({
-            userId: 'kdlafjnvvdd',
+            userId: req.user.userId,
             name: req.body.name,
             department: req.body.department,
             phn: req.body.mobileNumber,
@@ -33,7 +33,7 @@ exports.adduser = adduser;
 const updateuser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         //console.log(req.user.userId)
-        let current = yield studentModel_1.studentDetails.findOneAndUpdate({ name: req.body.name }, {
+        let current = yield studentModel_1.studentDetails.findOneAndUpdate({ userId: req.user.userId }, {
             $set: {
                 name: req.body.name,
                 email: req.body.email,
@@ -82,7 +82,7 @@ const users = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.users = users;
 const myprofile = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const profile = yield studentModel_1.studentDetails.find({});
+        const profile = yield studentModel_1.studentDetails.find({ userId: req.user.userId });
         res.json(profile);
     }
     catch (error) {

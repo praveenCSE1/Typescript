@@ -4,7 +4,7 @@ import {displayQuestions,add_mcq,storeResult,displayResult} from "../controllers
 import express from 'express';
 const router = express.Router();
 
-router.get('/displaResult',displayResult)
+router.get('/displayResult',displayResult)
 
 router.post('/storeResult',storeResult)
 

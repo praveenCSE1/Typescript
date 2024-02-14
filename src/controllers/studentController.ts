@@ -7,6 +7,7 @@ const adduser = async(req:Request,res:Response)=>{
       const newUser:Student = new studentDetails({
         userId:req.user.userId,
         name: req.body.name,
+        email:req.body.email,
         department: req.body.department,
         phn: req.body.mobileNumber,       
         dob: req.body.dateOfBirth

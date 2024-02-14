@@ -7,12 +7,6 @@ import {verifyToken} from "./controllers/jwtController"
 const app = express();
 const PORT:Number = 3000;
 
-declare namespace Express {
-  export interface Request {
-     user?:any
-  }
-}
-
 app.use(express.json());
 //for cross platform acess.
 app.use(cors({

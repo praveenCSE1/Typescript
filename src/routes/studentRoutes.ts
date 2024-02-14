@@ -7,9 +7,9 @@ router.get('/',users);
 
 router.post('/addStudent',adduser);
 
-router.post('/updateUser',updateuser)
+router.post('/updateStudent',updateuser)
 
-router.delete('/deleteUser',deleteuser)
+router.delete('/deleteStudent',deleteuser)
 
 router.get('/myProfile',myprofile)
 

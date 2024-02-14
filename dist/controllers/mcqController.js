@@ -41,7 +41,7 @@ exports.add_mcq = add_mcq;
 const storeResult = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const newResult = new mcqResultModel_1.mcqResult({
-            userId: 'dsfsfdedfdfsecvnmoe',
+            userId: req.user.userId,
             username: req.body.username,
             Result: req.body.result,
             marksObtained: req.body.marksObtained,
@@ -58,8 +58,7 @@ const storeResult = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 exports.storeResult = storeResult;
 const displayResult = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        // const result = await McqModel.findOne({userId:req.user.userId})
-        const result = yield mcqResultModel_1.mcqResult.find({});
+        const result = yield mcqResultModel_1.mcqResult.findOne({ userId: req.user.userId });
         console.log(result + 'd');
         res.status(200).json(result);
     }
