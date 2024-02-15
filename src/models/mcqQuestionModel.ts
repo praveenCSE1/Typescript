@@ -20,8 +20,6 @@ export interface Question extends mongoose.Document {
 
 
 
-
-
 //schema for categories of the MCQ's
 
 const categorySchema: mongoose.Schema = new mongoose.Schema<Category>({
@@ -45,11 +43,11 @@ const mcqSchema: mongoose.Schema = new mongoose.Schema<Question>({
     }],
     category: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Category' 
+        ref: 'category' 
     }
 });
 
-const CategoryModel = mongoose.model<Category>('Category', categorySchema);
+const CategoryModel = mongoose.model<Category>('category', categorySchema);
 
 const McqModel = mongoose.model<Question>('mcqQuestions', mcqSchema);
 

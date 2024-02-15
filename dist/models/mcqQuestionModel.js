@@ -20,10 +20,10 @@ const mcqSchema = new db_1.mongoose.Schema({
         }],
     category: {
         type: db_1.mongoose.Schema.Types.ObjectId,
-        ref: 'Category'
+        ref: 'category'
     }
 });
-const CategoryModel = db_1.mongoose.model('Category', categorySchema);
+const CategoryModel = db_1.mongoose.model('category', categorySchema);
 exports.CategoryModel = CategoryModel;
 const McqModel = db_1.mongoose.model('mcqQuestions', mcqSchema);
 exports.McqModel = McqModel;

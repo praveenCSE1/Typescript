@@ -1,18 +1,27 @@
 import {Request,Response} from "express"
-import { McqModel,Question } from "../models/mcqQuestionModel"
+import { McqModel,Question,CategoryModel } from "../models/mcqQuestionModel"
 import {McqResult,mcqResult} from "../models/mcqResultModel"
 
  export const displayQuestions = async(req:Request,res:Response)=>{
 
     try{
+        const categoryId = req.params.id;
 
-        const mcqId = req.params.id;
-        console.log(mcqId)
-        const data = await McqModel.find({})
+        console.log(categoryId)
+
+        // const newCategory = new CategoryModel({ name: 'History' });
+        // await newCategory.save()
+
+        const mcqs= await McqModel.find({ category:categoryId});
         
 
-        res.json(data);
-
+        if (!mcqs) {
+          return res.status(404).json({ error: 'Category not found' });
+        }
+    
+      
+        
+        res.json({ mcqs });
     }
     catch(error){
 
@@ -20,6 +29,21 @@ import {McqResult,mcqResult} from "../models/mcqResultModel"
     }
 
 
+}
+
+export const displayCategories = async(req:Request,res:Response)=>{
+    try{
+
+        const categories = await CategoryModel.find({})
+
+
+        res.status(200).json({categories})
+
+    }
+    catch(err){
+        console.error(err);
+        res.status(500).json({message:'Error while displaying the categories'})
+    }
 }
 
 export const add_mcq = async(req:Request,res:Response)=>{

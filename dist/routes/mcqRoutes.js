@@ -11,4 +11,5 @@ exports.mcq = router;
 router.get('/displayResult', mcqController_1.displayResult);
 router.post('/storeResult', mcqController_1.storeResult);
 router.get('/:id', mcqController_1.displayQuestions);
+router.get('/categories', mcqController_1.displayCategories);
 router.post('/', mcqController_1.add_mcq);

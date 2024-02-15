@@ -9,21 +9,37 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.displayResult = exports.storeResult = exports.add_mcq = exports.displayQuestions = void 0;
+exports.displayResult = exports.storeResult = exports.add_mcq = exports.displayCategories = exports.displayQuestions = void 0;
 const mcqQuestionModel_1 = require("../models/mcqQuestionModel");
 const mcqResultModel_1 = require("../models/mcqResultModel");
 const displayQuestions = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const mcqId = req.params.id;
-        console.log(mcqId);
-        const data = yield mcqQuestionModel_1.McqModel.find({});
-        res.json(data);
+        const categoryId = req.params.id;
+        console.log(categoryId);
+        // const newCategory = new CategoryModel({ name: 'History' });
+        // await newCategory.save()
+        const mcqs = yield mcqQuestionModel_1.McqModel.find({ category: categoryId });
+        if (!mcqs) {
+            return res.status(404).json({ error: 'Category not found' });
+        }
+        res.json({ mcqs });
     }
     catch (error) {
         res.status(500).json({ message: 'Error while fetching the data' });
     }
 });
 exports.displayQuestions = displayQuestions;
+const displayCategories = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const categories = yield mcqQuestionModel_1.CategoryModel.find({});
+        res.status(200).json({ categories });
+    }
+    catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Error while displaying the categories' });
+    }
+});
+exports.displayCategories = displayCategories;
 const add_mcq = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const question = req.body.question;
