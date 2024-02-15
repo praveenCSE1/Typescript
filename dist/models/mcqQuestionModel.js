@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.McqModel = exports.CategoryModel = void 0;
 const db_1 = require("./db");
-//schema for categories of the MCQ's
 const categorySchema = new db_1.mongoose.Schema({
     name: {
         type: String,

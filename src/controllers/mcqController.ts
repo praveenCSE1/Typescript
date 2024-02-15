@@ -19,8 +19,7 @@ import {McqResult,mcqResult} from "../models/mcqResultModel"
           return res.status(404).json({ error: 'Category not found' });
         }
     
-      
-        
+ 
         res.json({ mcqs });
     }
     catch(error){
@@ -35,7 +34,6 @@ export const displayCategories = async(req:Request,res:Response)=>{
     try{
 
         const categories = await CategoryModel.find({})
-
 
         res.status(200).json({categories})
 
@@ -79,12 +77,14 @@ export const add_mcq = async(req:Request,res:Response)=>{
 export  const storeResult = async(req:Request,res:Response)=>{
     try{
         const newResult:McqResult = new mcqResult({
+
             userId:req.user.userId,
             username:req.body.username,
             Result:req.body.result,
             marksObtained:req.body.marksObtained,
             TotalAttempts:req.body.TotalAttempts,
             Date: Date.now()
+
         });
         const saveresult = await newResult.save();
         
