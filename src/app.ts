@@ -4,7 +4,9 @@ import cors from "cors"
 import {mcq} from "./routes/mcqRoutes"
 import {Students} from "./routes/studentRoutes"
 import {verifyToken} from "./controllers/jwtController"
-import { redisfunction} from "./controllers/redisController"
+
+import {upload} from "./controllers/uploadcontroller" 
+
 const app = express();
 const PORT:Number = 3000;
 
@@ -15,6 +17,7 @@ app.use(cors({
   origin : '*'
 }))
 
+app.use('/uploads',upload)
 
 app.use('/students',verifyToken,Students)
 app.use('/mcq',verifyToken,mcq)

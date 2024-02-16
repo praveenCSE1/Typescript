@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<head>
+  <title>Task</title>
+  <style>
+     body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+    .container {
+      text-align: center;
+      margin: 20px;
+      padding: 20px;
+      border: 1px solid #141212;
+      border-radius: 8px;
+      width:300px;
+      height:70;
+    }
+    .sub {
+      padding: 5px 10px;
+      background-color: #4CAF50;
+      color: white;
+    
+      border-radius: 8px;
+
+      transition: background-color 0.3s ease;
+    }
+    .sub:hover {
+      background-color: #2a7d2e;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <input type="checkbox" id="All" onchange ="selectAll()">Select All     
+    <br>
+    
+    <div id = cb></div>
+    <input type="checkbox" class="other" name = "Checkbox1" onchange="count1()" > Checkbox 1
+    <br>
+    <input type="checkbox" class="other" name = "Checkbox2" onchange="count1()" > Checkbox 2
+    <br>
+    <input type="checkbox" class="other" name = "Checkbox3" onchange="count1()" > Checkbox 3
+    <br>
+    <button class ="sub" onclick="submit()">submit</button>
+    <br>
+    <h3 id = "selected"></h3>
+  </div>
+  <br>
+  
+  <script>
+
+  
+    
+    const allCheckbox = document.getElementById('All');
+    function selectAll() {
+      var checkboxes = document.querySelectorAll('.other');
+      checkboxes.forEach(function (checkbox) {
+        checkbox.checked = allCheckbox.checked;
+      });
+    }
+
+
+
+    ////check whether the all the check box is checked
+    function count1(){
+        count =0;
+        var checkboxes = document.querySelectorAll(".other");
+        checkboxes.forEach(function(x){
+          if(x.checked){
+            count++;
+          }
+        })
+        if(count==3)
+        {
+          allCheckbox.checked = true;
+        }
+        else{
+          allCheckbox.checked=false;
+        }
+    }
+    
+    ///To print the selected checkbox
+    function submit(){
+      var all = document.getElementById('All');
+      var checkboxes = document.querySelectorAll('.other');
+      var arr = [];
+      if(all.checked){        
+      
+        checkboxes.forEach(function(checkbox) {
+           arr.push(checkbox.name)
+          
+        });
+       
+      }
+      else{
+      checkboxes.forEach(function(checkbox) {
+        if (checkbox.checked) {
+
+          arr.push(checkbox.name)
+          
+        }
+      });
+    }
+      selected.innerHTML = "Selected: " + arr.join(', ');   
+    }
+  </script>
+</body>
+</html>
