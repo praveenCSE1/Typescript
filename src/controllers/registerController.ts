@@ -44,7 +44,7 @@ const login = async(req:Request,res:Response)=>{
         const email = req.body.email;
 
         const password = req.body.password;
-
+        
         const user : User | null= await Users.findOne({email})
 
         if(!user){

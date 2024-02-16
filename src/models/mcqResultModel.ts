@@ -6,6 +6,7 @@ export interface McqResult extends mongoose.Document{
     userId:string,
     username:string,
     Result:string,
+    
     marksObtained:{
         type:Number,default:0
     },
@@ -16,6 +17,8 @@ export interface McqResult extends mongoose.Document{
 }
 
 const mcq1:mongoose.Schema = new mongoose.Schema<McqResult>({
+
+
     userId:String,
     username:String,
     Result:String,

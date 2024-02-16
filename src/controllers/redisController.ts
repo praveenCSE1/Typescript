@@ -1,24 +1,16 @@
-import Redis from "redis"
+import redisClient from "../models/redisModel"
 
-const client = Redis.createClient({
-
-})
-
-const EXPIRY = 3600;
-function getDataFromCache(key: string): Promise<string | Error> {
+import {NextFunction, Request,Response} from "express"
 
 
-    return new Promise((resolve, reject) => {
+export async function redisfunction(req:Request,res:Response,next:NextFunction){
+
+  await redisClient.connect()
+
+ const data =  await redisClient.set(req.user.userID,req.user);
+
+ console.log(data)
 
 
-      client.get(key, (error: Error | null, data: string | null) => {
-        
-        if (error) {
+}
 
-          reject(error);
-       
-        } else { resolve(data);
-        }
-      });
-    });
-  }
